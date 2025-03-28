@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmu saraksts</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: auto; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid black; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Filmu saraksts</h1>
+
+    <!-- Filtrēšanas forma -->
+    <form method="GET" action="/movies">
+        <label for="genre">Filtrēt pēc žanra:</label>
+        <select name="genre" id="genre" onchange="this.form.submit()">
+            <option value="">Visi žanri</option>
+            {% for genre in genres %}
+            <option value="{{ genre }}" {% if genre == selected_genre %}selected{% endif %}>{{ genre }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <table>
+        <tr>
+            <th>Nosaukums</th>
+            <th>Gads</th>
+            <th>Žanrs</th>
+            <th>Reitings</th>
+            <th>Skatījumi</th>
+        </tr>
+        {% for movie in movies %}
+        <tr>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.year }}</td>
+            <td>{{ movie.genre }}</td>
+            <td>{{ movie.rating }}</td>
+            <td>{{ movie.views }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
